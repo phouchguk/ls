@@ -1,0 +1,194 @@
+Hello World
+Hello World
+
+(car (cons 1 2))
+1
+
+(cdr (cons 1 2))
+2
+
+'(cdr (cons 1 2))
+(cdr (cons 1 2))
+
+This is '(λ speech). It's great.
+This is (λ speech). It's great.
+
+(def x 42)
+
+
+(def y 24)
+
+
+(def my-pair (cons (x) (y)))
+
+
+(car (my-pair))
+42
+
+(cdr (my-pair))
+24
+
+(def hi Hello World)
+
+
+Hi, I say (hi)
+Hi, I say Hello World
+
+((fn (fruit unknown) The colour of fruits is unknown.) apple green)
+The colour of apples is green.
+
+(((fn (fruit unknown) The colour of fruits is unknown.)) apple green)
+The colour of apples is green.
+
+(((fn (fruit unknown) The colour of fruits is unknown.) apple) green)
+The colour of apples is green.
+
+((fn (:x :y :z) :z) 1 2 3)
+3
+
+((fn (_) i don't care what you say) blah blah blah)
+i don't care what you say
+
+((fn (:x _ _) :x) 1 2 3)
+1
+
+((fn (_ :x _) :x) 1 2 3)
+2
+
+((fn (_ _ :x) :x) 1 2 3)
+3
+
+((fn (_ _ &:x) :x) want to ignore the first two args)
+ignore the first two args
+
+((fn (&:x) :x) single 'rest' arg)
+single 'rest' arg
+
+(def fruits (cons apple (cons banana (cons lemon (cons orange nil)))))
+
+
+(car (fruits))
+apple
+
+(car (cdr (fruits)))
+banana
+
+(car (cdr (cdr (fruits))))
+lemon
+
+(car (cdr (cdr (cdr (fruits)))))
+orange
+
+(cdr (cdr (cdr (cdr (fruits)))))
+nil
+
+(def Y (fn (:g :n) (:g :g :n)))
+
+
+(def rec-test (fn (:g :l) (((nil? :l) (cons (fn (_ _)) (fn (:g :l) | (:g :g (cdr :l))))) :g :l)))
+
+
+(Y rec-test (fruits))
+| | | |
+
+(def succ (fn (:n :f :x) (:f ((:n :f) :x))))
+
+
+(def zero nil)
+
+
+(def one (succ (zero)))
+
+
+(def two (succ (one)))
+
+
+(def three (succ (two)))
+
+
+(def four (succ (three)))
+
+
+(def five (succ (four)))
+
+
+(def church (fn (:n) ((:n (fn (:x) :x|)) ')))
+
+
+(church (zero))
+'
+
+(church (one))
+'|
+
+(church (two))
+'||
+
+(church (three))
+'|||
+
+(church (four))
+'||||
+
+(church (five))
+'|||||
+
+(def add (fn (:n :m :f :x) ((:n :f) ((:m :f) :x))))
+
+
+(def mult (fn (:n :m :f :x) (:n (:m :f) :x)))
+
+
+(def power (fn (:n :m :f :x) ((:m :n :f) :x)))
+
+
+(church (add (two) (three)))
+'|||||
+
+(church (mult (two) (three)))
+'||||||
+
+(church (power (two) (three)))
+'||||||||
+
+(def pred (def pred-pair (fn (:p) (cons (cdr :p) (succ (cdr :p))))) (fn (:n) (car ((:n pred-pair) (cons (zero) (zero))))))
+
+
+(def subtract (fn (:m :n) ((:n pred) :m)))
+
+
+(church (pred (zero)))
+'
+
+(church (pred (one)))
+'
+
+(church (pred (three)))
+'||
+
+(church (subtract (three) (two)))
+'|
+
+(def div-r (fn (:a :b :q :r) (((nil? (subtract (mult :b :q) :a)) (cons (fn (:a :b :q :r) (div-r :a :b (succ :q) (subtract :a (mult :b :q)))) (fn (:a :b :q :r) (cons (pred :q) :r)))) :a :b :q :r)))
+
+
+(def div (fn (:a :b) ((fn (:d) [(church (car :d)) (church (cdr :d))]) (div-r :a :b (zero) :b))))
+
+
+(div (zero) (two))
+[' ']
+
+(div (one) (two))
+[' '|]
+
+(div (two) (two))
+['| ']
+
+(div (three) (two))
+['| '|]
+
+(div (four) (two))
+['|| ']
+
+(div (five) (two))
+['|| '|]

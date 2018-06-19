@@ -174,7 +174,7 @@
           bod = evalLambda("(" + _args_ + ") " + bod);
         } else if (args.length > 0) {
           lastIndex = args.length - 1;
-          isRest = vals.length > args.length && args[lastIndex].startsWith("&");
+          isRest = vals.length > args.length && args[lastIndex][0] === ("&");
 
           // total call
           for (i = 0; i < args.length; i++) {

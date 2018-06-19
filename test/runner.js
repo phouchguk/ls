@@ -1,12 +1,14 @@
 /* globals console, require */
 
-var file, fs, ls;
+var file, fs, ls, start;
 
 fs = require("fs");
 ls = require("../js/core.js");
 
 // load core lib
 file = fs.readFileSync("../ls/core.ls", "utf8");
+
+start = new Date().getTime();
 ls.evaluate(file);
 
 (function() {
@@ -29,9 +31,11 @@ ls.evaluate(file);
       console.log("ok");
     } else {
       console.log("FAIL: " + result);
-      return;
+      break;
     }
 
-    console.log();
+    console.log("");
   }
+
+  console.log("took ", new Date().getTime() - start, "ms");
 })();

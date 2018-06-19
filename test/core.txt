@@ -7,11 +7,14 @@ Hello World
 (cdr (cons 1 2))
 2
 
+(quote (cdr (cons 1 2)))
+(cdr (cons 1 2))
+
 '(cdr (cons 1 2))
 (cdr (cons 1 2))
 
-This is '(λ speech). It's great.
-This is (λ speech). It's great.
+This is '(λ speech). It's great!
+This is (λ speech). It's great!
 
 (def x 42)
 
@@ -169,6 +172,18 @@ nil
 (church (subtract (three) (two)))
 '|
 
+(def fac (fn (:n) (((nil? :n) (cons (fn (:n) (one)) (fn (:n) (mult :n (fac (pred :n)))))) :n)))
+
+
+(church (fac (zero)))
+'|
+
+(church (fac (three)))
+'||||||
+
+(church (fac (mult (two) (two))))
+'||||||||||||||||||||||||
+
 (def div-r (fn (:a :b :q :r) (((nil? (subtract (mult :b :q) :a)) (cons (fn (:a :b :q :r) (div-r :a :b (succ :q) (subtract :a (mult :b :q)))) (fn (:a :b :q :r) (cons (pred :q) :r)))) :a :b :q :r)))
 
 
@@ -192,3 +207,9 @@ nil
 
 (div (five) (two))
 ['|| '|]
+
+(def hanoi (fn (:n :from :to :via) (((nil? :n) (cons (fn (_ _ _ _)) (fn (:n :from :to :via) (hanoi (pred :n) :from :via :to) move disc from (church :from) to (church :to) (hanoi (pred :n) :via :to :from)))) :n :from :to :via)))
+
+
+(hanoi (four) (one) (two) (three))
+move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||  move disc from '| to '|||  move disc from '|| to '|  move disc from '|| to '|||  move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||  move disc from '||| to '|  move disc from '|| to '|  move disc from '||| to '||  move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||

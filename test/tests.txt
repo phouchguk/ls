@@ -225,9 +225,3 @@ apple banana lemon orange
 
 (hanoi (four) (one) (two) (three))
 move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||  move disc from '| to '|||  move disc from '|| to '|  move disc from '|| to '|||  move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||  move disc from '||| to '|  move disc from '|| to '|  move disc from '||| to '||  move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||
-
-(def print-li (fn (x) (((nil? x) (cons (fn (_)) (fn (x) <li>(car x)</li>(print-li (cdr x))))) x)))
-
-
-<ul>(print-li (fruits))</ul>
-<ul><li>apple</li><li>banana</li><li>lemon</li><li>orange</li></ul>

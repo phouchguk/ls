@@ -85,6 +85,18 @@ orange
 (cdr (cdr (cdr (cdr (fruits)))))
 nil
 
+(def print-list (fn (x) (((nil? x) (cons (fn (_)) (fn (x) (car x) (print-list (cdr x))))) x)))
+
+
+(print-list (fruits))
+apple banana lemon orange
+
+(def print-li-rev (fn (x) (((nil? x) (cons (fn (_)) (fn (x) (print-li-rev (cdr x))<li>(car x)</li>))) x)))
+
+
+<ul>(print-li-rev (fruits))</ul>
+<ul><li>orange</li><li>lemon</li><li>banana</li><li>apple</li></ul>
+
 (def Y (fn (:g :n) (:g :g :n)))
 
 
@@ -213,3 +225,9 @@ nil
 
 (hanoi (four) (one) (two) (three))
 move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||  move disc from '| to '|||  move disc from '|| to '|  move disc from '|| to '|||  move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||  move disc from '||| to '|  move disc from '|| to '|  move disc from '||| to '||  move disc from '| to '|||  move disc from '| to '||  move disc from '||| to '||
+
+(def print-li (fn (x) (((nil? x) (cons (fn (_)) (fn (x) <li>(car x)</li>(print-li (cdr x))))) x)))
+
+
+<ul>(print-li (fruits))</ul>
+<ul><li>apple</li><li>banana</li><li>lemon</li><li>orange</li></ul>

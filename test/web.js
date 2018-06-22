@@ -5,8 +5,8 @@ var xhr = function(url, onOk) {
 
   key = "_XHR_" + url;
 
-  if (localStorage.getItem(key)) {
-    onOk(localStorage.getItem(key));
+  if (sessionStorage.getItem(key)) {
+    onOk(sessionStorage.getItem(key));
     return;
   }
 
@@ -14,7 +14,7 @@ var xhr = function(url, onOk) {
 
   req.onreadystatechange = function() {
     if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
-      localStorage.setItem(key, req.responseText);
+      sessionStorage.setItem(key, req.responseText);
       onOk(req.responseText);
     }
   };
